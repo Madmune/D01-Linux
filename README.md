@@ -1,4 +1,4 @@
-## Part 1. Установка ОС
+## Part 1. Установка ОС!!!!!!!!!!
 
 **Установлен `Ubuntu 20.04 Server LTS`[^1] без графического интерфейса.
 команда для просмотра `cat /etc/issue`**
@@ -8,86 +8,87 @@
 
 ## Part 2. Создание пользователя
 
-**1. Создаю нового пользователя командой `sudo adducer` username (вместо username мы должны записать имя пользователя который мы создадим)**
-![](screenshots/part2/test1.png)
+**1. Создаю нового пользователя командой `sudo adducer` username (вместо username мы должны записать имя пользователя который мы создадим, в моём случае "new")**
+
+![](pics/1.png)
 
 **2. даю права командой `sudo usermod -aG adm user`**
-![](screenshots/part2/test12.png)
 
 **3. перехожу к пользователю командой `sudo su user`**
-![](screenshots/part2/test13.png)
 
 **4. проверяю записался ли мой новый пользователь в группу командой `groups`**
-![](screenshots/part2/test4.png)
 
-**5. выводим логи командой `cat /var/log/syslog`**
-![](screenshots/part2/test5.png)
-
-**6. и в конце проверка командой `cat /etc/passwd`**
-![](screenshots/part2/test6.png)
+**5. и в конце проверка командой `cat /etc/passwd`**
+![](pics/2,2.png)
 
 ---
 
 ## Part 3. Настройка сети ОС
 
 **1. `sudo hostname user-1` - меняем имя хоста**
+
 **2. `cat /etc/hostname` - проверяем поменялось ли если да то все четко, если нет то**
+![](pics/3,1.png)
 **3. `sudo vim /etc/hostname` - этой командой вручную меняем**
+
 **4. `sudo vim /etc/hosts` - и в этом файле тоже**
-![](screenshots/part3/test1.png)
 
 **5. `sudo timedatectl set-timezone Europe/Moscow` - меняем часовой пояс**
+
 **6. Проверяем этими двумя командами `timedatectl` и `cat /etc/timezone`**
-![](screenshots/part3/test2.png)
+![](pics/3,2.png)
 
 **7. `sudo apt install net-tools` - скачиваем `net-tools`**
+![](pics/3,3.png)
+
 **8. `ifconfig` - для просмотра нашей сетевой конфигурации**
-![](screenshots/part3/test3.png)
 
 **9. Сбрасываем свой старый ip адрес командой `sudo dhclient -r enp0s3`**
-![](screenshots/part3/test4.png)
+![](pics/3,4.png)
 
 **10. И получаем новый командой `sudo dhclient -v enp0s3`**
-![](screenshots/part3/test5.png)
+![](pics/3,5.png)
 
 **11. Проверить все это можно командой `ifconfig`**
-![](screenshots/part3/test6.png)
+![](pics/3,6.png)
 
 **12. Узнаем свой внешний ip address командой `wget -O - -q icanhazip.com`**
 **13. Внутренний ip можно узнать командой `route -n`**
-![](screenshots/part3/test7.png)
+![](pics/3,7.png)
 
 **`ls /etc/netplan` - проверяем директорию**
-![](screenshots/part3/test8.png)
+![](pics/3,8.png)
 
 **14. `sudo vim /etc/netplan/00-installer-config.yaml` - В этом файле у нас уже имеется шаблон для нашей сети**
 **enp0s3. Наша задача - отключить получение адресов от DHCP и присвоить свой статический адрес. Для этого**
+
 **15. `"dhcp4: true"` меняем на `"dhcp4: false"` и ниже добавляем строки с выбранным нами IP, шлюзом и** **DNS-серверами**
+
 **16. Сначала смотрим наш шлюз командой `route -n`, в этом диапазоне адресов задаём IP, а в качестве DNS выбираем гугловские `1.1.1.1 и 8.8.8.8`, как и рекомендуется в задании**
-![](screenshots/part3/test9.png)
+![](pics/3,9.png)
 
 **17. `sudo netplan apply` - для применения конфигураций**
+
 **18. `sudo netplan try` - для применения изменений**
-![](screenshots/part3/test10.png)
 
 **19. `ifconfig` - проверяем получили ли мы статистический айпишники**
-![](screenshots/part3/test11.png)
+![](pics/3,10.png)
 
 **20. `ping ya.ru` - и убеждаемся что все работает**
-![](screenshots/part3/test12.png)
+![](pics/3,11.png)
 
 ---
 
 ## Part 4. Обновление ОС
 
 **1. `sudo apt update` - обновляю бунту**
-![](screenshots/part4/test1.png)
+![](pics/4.1.png)
 
 **2. `sudo apt dist-upgrade` - обновляю версию пакетов**
-![](screenshots/part4/test2.png)
+![](pics/4.2.png)
 
-**3. И проверю этими же командами на обновление**
-![](screenshots/part4/test3.png)
+**3. И `sudo apt update` проверю на обновление**
+![](pics/4.3.png)
 
 ---
 
@@ -95,42 +96,44 @@
 
 **1. Команда sudo - позволяет строго определенным пользователям выполнять указанные программы с административными привилегиями без ввода пароля суперпользователя root**
 
-**2. `sudo touch /etc/sudoers.d/user3` - создаю файл для нашего пользователя**
-![](screenshots/part5/test1.png)
+**2. `sudo touch /etc/sudoers.d/new` - создаю файл для нашего пользователя**
 
-**3. `sudo vim /etc/sudoers.d/user3` - открываю в вим и записываю такую строку `user3 ALL=(ALL:ALL) ALL`[^9]**
-![](screenshots/part5/test2.png)
+**3. `sudo vim /etc/sudoers.d/new` - открываю в вим и записываю такую строку `new ALL=(ALL:ALL) ALL`[^9]**
+![](pics/5.1.png)
 
-**4. И перехожу к нему командой su user3**
-![](screenshots/part5/test3.png)
+**4. И перехожу к нему командой su new**
+![](pics/5.2.png)
 
 **5. И проверим командой `sudo apt update` чтобы убедится что все работает**
-**6. `sudo vim /etc/hostname` - поменяю на user3**
+**6. `sudo vim /etc/hostname` - поменяю на new**
 
+**7. Перезапускаем виртуальную машину и видим внесенные изменения.**
+ ![](pics/5.3.png)
 ---
 
 ## Part 6. Установка и настройка службы времени
 
 **1. `sudo apt install -y ntp` - устанавливаем**
-![](screenshots/part6/test1.png)
+![](pics/6.1.png)
 
 **2. `dpkg -l | grep "ntp"` - проверяем все ли установилось успешно**
+![](pics/6.2.png)
 **3. `sudo apt update` - снова обновляем чтобы проверить все ли нормально**
-![](screenshots/part6/test2.png)
+![](pics/6.3.png)
 
 **4. `ntpq -p` - Проверим, что `ntp` подключён к серверам времен**
-![](screenshots/part6/test3.png)
+![](pics/6.4.png)
 
 **5. `sudo systemctl stop ntp` - остановим нашу команду**
 **6. `sudo ntpd -gq` - и принудительно синхронизируем все это**
-![](screenshots/part6/test4.png)
+![](pics/6.5.png)
 
 **7. `sudo systemctl start ntp` - снова все запускаем**
 **8. `sudo systemctl status ntp` - и убеждаемся что все нормально**
-![](screenshots/part6/test5.png)
+![](pics/6.6.png)
 
-**9. `timedatectl` - и в конце проверяем еще раз**
-![](screenshots/part6/test6.png)
+**9. `timedatectl show` - и в конце проверяем еще раз**
+![](pics/6.7.png)
 
 ---
 
@@ -139,20 +142,18 @@
 ###JOE
 **1. `sudo apt install Joe` - скачиваю `Joe` текстовый редактор.**
 **и есть у нас уже установленные два редактора это vim и nano**
-![](screenshots/part7/joe/test1.png)
+![](pics/7.1.png)
 **2. `sudo Joe test_JOE.txt` - создаю .txt файл и открываю его для записи**
-![](screenshots/part7/joe/test2.png)
+![](pics/7.4png)
 **Записал все что мне нужно**
 **3. `control+k` а потом нажимаю `Q` и он спросит сохранить изменения.**
 **я нажимаю кнопку y и он все сохранит и выйдет**
-![](screenshots/part7/joe/test3.png)
 **5. Для поиска я нажимаю `control+k` и потом `f`**
 **6. И пишу искомое слово и `enter`**
-![](screenshots/part7/joe/test4.png)
+![](pics/7,joe,zam.png)
 **7. И нам показывают еще несколько команд, из них нам понадобиться только `R`**
-![](screenshots/part7/joe/test5.png)
-**8. И слово на которое мы заменим в моем случае это `user3`**
-![](screenshots/part7/joe/test6.png)
+**8. И слово на которое мы заменим в моем случае это `daniella`**
+![](pics/7.41.png)
 **9. Сохраняем и выходим**
 
 ###VIM
