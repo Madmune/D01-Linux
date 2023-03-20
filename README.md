@@ -2,7 +2,7 @@
 
 **Установлен `Ubuntu 20.04 Server LTS`[^1] без графического интерфейса.
 команда для просмотра `cat /etc/issue`**
-![](pics/1.png)
+![Ubuntu installing](pics/1.png)
 
 ---
 
@@ -10,7 +10,7 @@
 
 **1. Создаю нового пользователя командой `sudo adducer` username (вместо username мы должны записать имя пользователя который мы создадим, в моём случае "new")**
 
-![](pics/2.png)
+![adding new user](pics/2.png)
 
 **2. даю права командой `sudo usermod -aG adm user`**
 
@@ -19,7 +19,7 @@
 **4. проверяю записался ли мой новый пользователь в группу командой `groups`**
 
 **5. и в конце проверка командой `cat /etc/passwd`**
-![](pics/2,2.png)
+![checking user in admin groups](pics/2,2.png)
 
 ---
 
@@ -28,7 +28,7 @@
 **1. `sudo hostname user-1` - меняем имя хоста**
 
 **2. `cat /etc/hostname` - проверяем поменялось ли если да то все четко, если нет то**
-![](pics/3,1.png)
+![checking hostname](pics/3,1.png)
 **3. `sudo vim /etc/hostname` - этой командой вручную меняем**
 
 **4. `sudo vim /etc/hosts` - и в этом файле тоже**
@@ -36,29 +36,29 @@
 **5. `sudo timedatectl set-timezone Europe/Moscow` - меняем часовой пояс**
 
 **6. Проверяем этими двумя командами `timedatectl` и `cat /etc/timezone`**
-![](pics/3,2.png)
+![checking time and timezone](pics/3,2.png)
 
 **7. `sudo apt install net-tools` - скачиваем `net-tools`**
-![](pics/3,3.png)
+![install net-tools](pics/3,3.png)
 
 **8. `ifconfig` - для просмотра нашей сетевой конфигурации**
 
 **9. Сбрасываем свой старый ip адрес командой `sudo dhclient -r enp0s3`**
-![](pics/3,4.png)
+![reset ip](pics/3,4.png)
 
 **10. И получаем новый командой `sudo dhclient -v enp0s3`**
-![](pics/3,5.png)
+![getting new ip](pics/3,5.png)
 
 **11. Проверить все это можно командой `ifconfig`**
-![](pics/3,6.png)
+![checking ip](pics/3,6.png)
 
 **12. Узнаем свой внешний ip address командой `wget -O - -q icanhazip.com`**
 
 **13. Внутренний ip можно узнать командой `route -n`**
-![](pics/3,7.png)
+![checking inner ip](pics/3,7.png)
 
 **`ls /etc/netplan` - проверяем директорию**
-![](pics/3,8.png)
+![checking directory](pics/3,8.png)
 
 **14. `sudo vim /etc/netplan/00-installer-config.yaml` - В этом файле у нас уже имеется шаблон для нашей сети**
 **enp0s3. Наша задача - отключить получение адресов от DHCP и присвоить свой статический адрес. Для этого**
@@ -66,30 +66,30 @@
 **15. `"dhcp4: true"` меняем на `"dhcp4: false"` и ниже добавляем строки с выбранным нами IP, шлюзом и** **DNS-серверами**
 
 **16. Сначала смотрим наш шлюз командой `route -n`, в этом диапазоне адресов задаём IP, а в качестве DNS выбираем гугловские `1.1.1.1 и 8.8.8.8`, как и рекомендуется в задании**
-![](pics/3,9.png)
+![changing dhcp4 and dns](pics/3,9.png)
 
 **17. `sudo netplan apply` - для применения конфигураций**
 
 **18. `sudo netplan try` - для применения изменений**
 
 **19. `ifconfig` - проверяем получили ли мы статистический айпишники**
-![](pics/3,10.png)
+![checking static ip](pics/3,10.png)
 
 **20. `ping ya.ru` - и убеждаемся что все работает**
-![](pics/3,11.png)
+![checking ping](pics/3,11.png)
 
 ---
 
 ## Part 4. Обновление ОС
 
-**1. `sudo apt update` - обновляю бунту**
-![](pics/4.1.png)
+**1. `sudo apt update` - обновляю Ubuntu**
+![updating ubuntu](pics/4.1.png)
 
 **2. `sudo apt dist-upgrade` - обновляю версию пакетов**
-![](pics/4.2.png)
+![updating dist-upgrade](pics/4.2.png)
 
 **3. И `sudo apt update` проверю на обновление**
-![](pics/4.3.png)
+![checking updates](pics/4.3.png)
 
 ---
 
@@ -100,41 +100,41 @@
 **2. `sudo touch /etc/sudoers.d/new` - создаю файл для нашего пользователя**
 
 **3. `sudo vim /etc/sudoers.d/new` - открываю в вим и записываю такую строку `new ALL=(ALL:ALL) ALL`[^9]**
-![](pics/5.1.png)
+![new ALL=(ALL:ALL) ALL](pics/5.1.png)
 
 **4. И перехожу к нему командой su new**
-![](pics/5.2.png)
+![changing user for new](pics/5.2.png)
 
 **5. И проверим командой `sudo apt update` чтобы убедится что все работает**
 **6. `sudo vim /etc/hostname` - поменяю на new**
 
 **7. Перезапускаем виртуальную машину и видим внесенные изменения.**
- ![](pics/5.3.png)
+ ![reboot system](pics/5.3.png)
 ---
 
 ## Part 6. Установка и настройка службы времени
 
 **1. `sudo apt install -y ntp` - устанавливаем**
-![](pics/6.1.png)
+![installing ntp](pics/6.1.png)
 
 **2. `dpkg -l | grep "ntp"` - проверяем все ли установилось успешно**
-![](pics/6.2.png)
+![checking ntp installed](pics/6.2.png)
 **3. `sudo apt update` - снова обновляем чтобы проверить все ли нормально**
-![](pics/6.3.png)
+![updating machine](pics/6.3.png)
 
 **4. `ntpq -p` - Проверим, что `ntp` подключён к серверам времен**
-![](pics/6.4.png)
+![connecting to time server](pics/6.4.png)
 
 **5. `sudo systemctl stop ntp` - остановим нашу команду**
 **6. `sudo ntpd -gq` - и принудительно синхронизируем все это**
-![](pics/6.5.png)
+![synchron ntp&d](pics/6.5.png)
 
 **7. `sudo systemctl start ntp` - снова все запускаем**
 **8. `sudo systemctl status ntp` - и убеждаемся что все нормально**
-![](pics/6.6.png)
+![restart and checking](pics/6.6.png)
 
 **9. `timedatectl show` - и в конце проверяем еще раз**
-![](pics/6.7.png)
+![show time](pics/6.7.png)
 
 ---
 
@@ -143,7 +143,7 @@
 ###JOE
 **1. `sudo apt install Joe` - скачиваю `Joe` текстовый редактор.**
 **и есть у нас уже установленные два редактора это vim и nano**
-![](pics/7.1.png)
+![instaling Joe](pics/7.1.png)
 **2. `sudo Joe test_JOE.txt` - создаю .txt файл и открываю его для записи**
 ![](pics/7.4.png)
 **Записал все что мне нужно**
