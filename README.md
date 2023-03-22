@@ -225,7 +225,7 @@
 **Для этого открыл файл конфигурации с помощью команды: vim /etc/ssh/sshd_config**
 **Нашёл строку, определяющую порт: Port 22**
 **Поменял его на 2022 и раскомментировал строку.**
-![Port 22 -> 2022](pics/8.3.png)
+![Port 22->2022](pics/8.3.png)
 **4. Сохранил и перезапустил командой `sudo service sshd restart` и проверю командой `sudo service sshd status`**
 ![restart system](pics/8.4.png)
 **5.Проверка стату фаербола командой `sudo ufw status` оно было `inactive` и я исправил это командой `sudo ufw enable`**
